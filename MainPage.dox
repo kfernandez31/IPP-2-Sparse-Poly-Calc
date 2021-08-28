@@ -1,0 +1,20 @@
+/**
+@mainpage Dokumentacja zadania wielomiany
+
+### Treść zadania
+
+Uwaga: aktualna treść zadania znajduje się w [Moodle](https://moodle.mimuw.edu.pl).
+
+### Opis programu
+
+Tegoroczne duże zadanie polega na zaimplementowaniu operacji na wielomianach
+rzadkich wielu zmiennych.
+
+Program obsługuje podstawowe działania arytmetyczne, takie jak dodawanie, odejmowanie,
+podstawianie i mnożenie wielomianów, aż po składanie ich ze sobą. Korzystanie z programu
+odbywa się poprzez interfejs "klasy" menu, której instancja znajduje się w pliku main.
+Uruchamia kalkulator, przyjmuje i przetwarza dane, zwraca wyniki żądanych operacji
+na wyjście standardowe (stdout), a także wypisuje ewentualne błędy 
+na standardowe wyjście diagnostyczne (stderr).
+
+*/
