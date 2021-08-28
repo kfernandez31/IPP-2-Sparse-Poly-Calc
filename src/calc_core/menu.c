@@ -1,3 +1,11 @@
+/** @file
+  Interfejs menu do kalkulatora wielomianów rzadkich wielu zmiennych
+
+  @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #include "menu.h"
 
 /**

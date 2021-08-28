@@ -1,3 +1,12 @@
+/** @file
+  Implementacja klasy wielomianów rzadkich wielu zmiennych
+
+  @authors Jakub Pawlewicz <pan@mimuw.edu.pl>, Marcin Peczarski <marpe@mimuw.edu.pl>,
+  Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #include "poly.h"
 
 /**
@@ -163,6 +172,15 @@ static void PolySimplifyByMerging(Poly *p, size_t count, Mono *sourceMonos);
  * @param[in] p : wielomian
 */
 static void PolyCleanFromZeros(Poly *p);
+
+/**
+ * Podnosi wielomian @p p do kwadratu.
+ *
+ * @param[in] p : wielomian
+ *
+ * @return : p^2
+*/
+static inline Poly PolySquare(Poly *p);
 
 /**
  * Podnosi wielomian @p base do potęgi @p exp.
@@ -689,12 +707,12 @@ Poly PolyCompose(const Poly *p, size_t k, const Poly q[])
     return temp;
 }
 
-Poly PolySquare(Poly *p)
+static inline Poly PolySquare(Poly *p)
 {
     return PolyMul(p, p);
 }
 
-Poly PolyPow(const Poly *base, poly_exp_t exp)
+static Poly PolyPow(const Poly *base, poly_exp_t exp)
 {
     assert (exp >= 0);
 

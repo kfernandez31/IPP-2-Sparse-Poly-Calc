@@ -1,3 +1,11 @@
+/** @file
+  Implementacja kalkulatora wielomianów rzadkich wielu zmiennych
+
+  @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #include <ctype.h>
 #include "calc.h"
 #include "line_structures.h"

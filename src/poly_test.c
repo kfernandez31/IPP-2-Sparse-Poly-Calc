@@ -1,3 +1,13 @@
+/** @file
+  Implementacja funkcji testujących poprawność funkcji z poly.c
+  @see : poly.c
+
+  @authors Jakub Pawlewicz <pan@mimuw.edu.pl>, Marcin Peczarski <marpe@mimuw.edu.pl>,
+  Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #ifdef NDEBUG
 #undef NDEBUG
 #endif

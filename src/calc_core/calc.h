@@ -1,3 +1,11 @@
+/** @file
+  Interfejs kalkulatora wielomianów rzadkich wielu zmiennych
+
+  @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #ifndef __CALC_H__
 #define __CALC_H__
 
@@ -115,9 +123,8 @@ void CalcDestroy(Calculator *calc);
  * i przechowująca go w @p calc->arg
  *
  * @param[in, out] calc : kalkulator
- * @param[in] op : indeks komendy
+ * @param[in] line : linia, znająca swój indeks
  * @param[in] str : argument przed obróbką
- * @param[in] line_idx : indeks linii
  *
  * @return : czy wprowadzono poprawny argument
  */

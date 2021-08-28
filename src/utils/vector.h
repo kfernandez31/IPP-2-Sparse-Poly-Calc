@@ -1,5 +1,5 @@
 /** @file
-  Interfejs wektora / dynamicznej tablicy a la C++ w C
+  Interfejs dynamicznej tablicy w C inspirowanej wektorem z C++
 
   @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
   @copyright Uniwersytet Warszawski
@@ -20,8 +20,8 @@
 /**
  * Zwraca i-ty element wektora z castem na oczekiwany typ @p TYPE.
  * @param[in] TYPE : typ, na który castujemy
- * @param[in] v : wektor
- * @param[in] i : indeks
+ * @param[in] vector : wektor
+ * @param[in] index : indeks
  * @return : wskaźnik na i-ty element po zcastowaniu
  */
 #define GET_ITEM(TYPE,vector,index) (TYPE*)VectorAt(vector, index)

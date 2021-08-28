@@ -1,7 +1,8 @@
 /** @file
   Interfejs klasy wielomianów rzadkich wielu zmiennych
 
-  @authors Jakub Pawlewicz <pan@mimuw.edu.pl>, Marcin Peczarski <marpe@mimuw.edu.pl>, Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @authors Jakub Pawlewicz <pan@mimuw.edu.pl>, Marcin Peczarski <marpe@mimuw.edu.pl>,
+  Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
   @copyright Uniwersytet Warszawski
   @date 2021
 */
@@ -195,7 +196,7 @@ bool PolyIsEq(const Poly *p, const Poly *q);
  * wielomian @f$p(x, x_0, x_1, \ldots)@f$.
  *
  * @param[in] p : wielomian @f$p@f$
- * @param[in] x : wartość argumentu @f$x@f$
+ * @param[in] x : wartość wielomianu dla argumentu @f$x@f$
  *
  * @return @f$p(x, x_0, x_1, \ldots)@f$
  */
@@ -258,7 +259,7 @@ Poly PolyCloneMonos(size_t count, const Mono monos[]);
  * podstawiamy zera. Na przykład, jeśli k=0, to wynikiem złożenia jest liczba p(0,0,0,…)."
  *
  * @param[in] p : wielomian
- * @param[in] q : k
+ * @param[in] k : liczba wielomianów/podstawianych zmiennych
  * @param[in] q : tablica wielomianów (zmienne nowego wielomianu)
  *
  * @return @f$p(q_0,q_1,...,q_{min(k,l)-1)}@f$

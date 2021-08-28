@@ -1,3 +1,11 @@
+/** @file
+  Struktury wykorzystywane do przetwarzania danych wejściowych w kalkulatorze wielomianów rzadkich wielu zmiennych
+
+  @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #ifndef __LINE_STRUCTURES_H__
 #define __LINE_STRUCTURES_H__
 

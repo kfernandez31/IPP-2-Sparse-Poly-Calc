@@ -1,3 +1,11 @@
+/** @file
+  Interfejs funkcji przetwarzających dane wejściowe dla kalkulatora wielomianów rzadkich wielu zmiennych
+
+  @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
+  @copyright Uniwersytet Warszawski
+  @date 2021
+*/
+
 #ifndef __PARSING_H__
 #define __PARSING_H__
 

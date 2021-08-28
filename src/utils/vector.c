@@ -1,5 +1,5 @@
 /** @file
-  Interfejs wektora / dynamicznej tablicy a la C++ w C
+  Implementacja dynamicznej tablicy w C inspirowanej wektorem z C++
 
   @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
   @copyright Uniwersytet Warszawski
