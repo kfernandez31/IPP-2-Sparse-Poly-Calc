@@ -9,7 +9,7 @@
 #ifndef __LINE_STRUCTURES_H__
 #define __LINE_STRUCTURES_H__
 
-#include "calc.h"
+#include "calc_engine.h"
 #include "../poly_core/poly_structures.h"
 
 /**

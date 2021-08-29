@@ -12,9 +12,10 @@ rzadkich wielu zmiennych.
 
 Program obsługuje podstawowe działania arytmetyczne, takie jak dodawanie, odejmowanie,
 podstawianie i mnożenie wielomianów, aż po składanie ich ze sobą. Korzystanie z programu
-odbywa się poprzez interfejs "klasy" menu, której instancja znajduje się w pliku src/main.
-Uruchamia kalkulator, przyjmuje i przetwarza dane, zwraca wyniki żądanych operacji
-na wyjście standardowe (stdout), a także wypisuje ewentualne błędy 
-na standardowe wyjście diagnostyczne (stderr).
+odbywa się poprzez instancję klasy `Menu`, która znajduje się w pliku w funkcji `main()`,
+pluku `/src/calc_core_calc.c`
+Uruchomienie kalkulatora przygotowuje go do przyjmowania i przetwarza danych, zwracania
+wyniki żądanych operacji na wyjście standardowe (`stdout`), oraz wypisywania ewentualnych błędów
+na standardowe wyjście diagnostyczne (`stderr`).
 
 */

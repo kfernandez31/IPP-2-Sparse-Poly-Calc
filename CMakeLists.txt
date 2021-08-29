@@ -13,7 +13,7 @@ set_property(GLOBAL PROPERTY RULE_MESSAGES OFF)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Ustawiamy wspólne opcje kompilowania dla wszystkich wariantów projektu.
-set(CMAKE_C_FLAGS "-std=c11 -Wall -Wextra")
+set(CMAKE_C_FLAGS "-std=c11 -Wall -Wextra -O2")
 # Domyślne opcje dla wariantów Release i Debug są sensowne.
 # Jeśli to konieczne, ustawiamy tu inne.
 # set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
@@ -21,24 +21,19 @@ set(CMAKE_C_FLAGS "-std=c11 -Wall -Wextra")
 
 # Wskazujemy pliki źródłowe.
 set(SOURCE_FILES
-        src/main.c
-        src/poly_test.c
         src/poly_core/poly.c
         src/poly_core/poly.h
         src/poly_core/poly_structures.h
+        src/calc_core/calc_engine.c
+        src/calc_core/calc_engine.h
+        src/calc_core/line_structures.h
         src/calc_core/calc.c
         src/calc_core/calc.h
-        src/calc_core/line_structures.h
-        src/calc_core/line_structures.h
-        src/calc_core/menu.c
-        src/calc_core/menu.h
         src/calc_core/parsing.c
         src/calc_core/parsing.h
         src/utils/safe_allocations.h
         src/utils/vector.c
         src/utils/vector.h
-        src/utils/helper_funcs.c
-        src/utils/helper_funcs.h
         )
 
 # Wskazujemy plik wykonywalny.

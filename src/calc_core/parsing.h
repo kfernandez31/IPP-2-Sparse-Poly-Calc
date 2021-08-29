@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "calc.h"
+#include "calc_engine.h"
 
 /**
  * Kody stanu zwracane podczas parsowania wielomianów
