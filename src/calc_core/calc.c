@@ -1,5 +1,5 @@
 /** @file
-  Implementacja menu do kalkulatora wielomianów rzadkich wielu zmiennych
+  Interfejs menu do kalkulatora wielomianów rzadkich wielu zmiennych
 
   @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
   @copyright Uniwersytet Warszawski
@@ -50,6 +50,28 @@ static void execCommand(Calculator *calc, const Line line);
  */
 static cmd_errcode_t getCommandCode(const char *cmd, Line *line);
 
+/**
+ * Przetwarza linię zawierającą tekstową reprezentację wielomianu.
+ * Jeśli wielomian utworzono pomyślnie, dodaje go do stosu kalkulatora,
+ * w przeciwnym wypadku wypisuje błąd na standardowe wyjście diagnostyczne.
+ *
+ * @param[in, out] menu : menu kalkulatora, z dostępem do stosu wielomianów
+ * @param[in] line : struktura linii, wraz z jej indeksem
+ * @param[in] str : linia przed obróbką, reprezentująca wielomian
+ */
+static void parseAndPushPoly(Menu *menu, Line line, const char *str);
+
+/**
+ * Przetwarza linię zawierającą tekstową reprezentację komendy.
+ * Jeśli wpisano prawidłowo komendę, przekazuje ją do kalkulatora wraz
+ * z jej argumentem, i wykonuję ją. W wypadku błędnych danych,
+ * wypisuje błąd na standardowe wyjście diagnostyczne.
+ *
+ * @param[in, out] menu : menu kalkulatora, z dostępem do aktualnego argumentu
+ * @param[in] line : struktura linii, wraz z jej indeksem
+ * @param[in] str : linia przed obróbką, reprezentująca komendę
+ */
+static void parseAndExecCommand(Menu *menu, Line line, const char *str);
 
 
 void run(Menu* menu)
@@ -60,7 +82,9 @@ void run(Menu* menu)
 
     CalcInit(&menu->calc);
 
+    errno = 0;
     while ( (nread = getline(&lineptr, &len, stdin)) != -1 ) {
+        CHECK_POINTER(lineptr);
         Line line;
 
         detectLineType(&line, line_index++, lineptr, nread);
@@ -69,50 +93,23 @@ void run(Menu* menu)
             continue;
         }
         else if (line.type == POLY_LINE) {
-            if (parsePoly(&line.contents.poly, lineptr, line) != POLY_ERR) {
-                if (VectorPush(menu->calc.polyStack, &line.contents.poly) != VECT_OK) {
-                    exit(EXIT_FAILURE);
-                }
-            }
+            parseAndPushPoly(menu, line, lineptr);
         }
         else if (line.type == CMD_LINE) {
-            size_t lineptr_len = strlen(lineptr);
-            char *cmd_name = NULL, *arg = NULL;
-
-            int separator_index = -1;    // znalezienie pierwszego wystąpienia nie-litery
-            for (int i = 0; i < (int)lineptr_len; i++) {
-                if (isspace(lineptr[i])) {
-                    separator_index = i;
-                    break;
-                }
-            }
-
-            if (separator_index == -1) {
-                cmd_name = safeCalloc(lineptr_len + 1, sizeof(char));
-                memcpy(cmd_name, lineptr, lineptr_len * sizeof(char)); // nazwa komendy - cała linia, argument - nic
-            }
-            else {
-                cmd_name = safeCalloc(separator_index + 1, sizeof(char));
-                arg = safeCalloc(lineptr_len - separator_index + 1, sizeof(char));
-                memcpy(cmd_name, lineptr, separator_index * sizeof(char)); // nazwa komendy - linia aż do separator_index
-                memcpy(arg, lineptr + separator_index, (lineptr_len - separator_index + 1) * sizeof(char)); // argument - reszta linii
-            }
-
-            if (getCommandCode(cmd_name, &line) != CMD_WRONG_COMMAND) {
-                if (CalcParseArg(&menu->calc, line, arg) != CMD_INVALID_ARG) {
-                    execCommand(&menu->calc, line);
-                }
-            }
-            free(cmd_name);
-            free(arg);
+            parseAndExecCommand(menu, line, lineptr);
         }
     }
     if (lineptr != NULL) {
         free(lineptr);
     }
+    if (nread == -1 && errno == ENOMEM) {
+        exit(EXIT_FAILURE);
+    }
 
     CalcDestroy(&menu->calc);
 }
+
+
 
 static cmd_errcode_t getCommandCode(const char *cmd, Line *line)
 {
@@ -126,14 +123,54 @@ static cmd_errcode_t getCommandCode(const char *cmd, Line *line)
     return CMD_WRONG_COMMAND;
 }
 
+static void parseAndPushPoly(Menu *menu, Line line, const char *str)
+{
+    if (parsePoly(&line.contents.poly, str, line) != POLY_ERR) {
+        if (VectorPush(menu->calc.polyStack, &line.contents.poly) != VECT_OK) {
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
+static void parseAndExecCommand(Menu *menu, Line line, const char *str)
+{
+    size_t lineptr_len = strlen(str);
+    char *cmd_name = NULL, *arg = NULL;
+
+    int separator_index = -1;    // znalezienie pierwszego wystąpienia nie-litery
+    for (int i = 0; i < (int)lineptr_len; i++) {
+        if (isspace(str[i])) {
+            separator_index = i;
+            break;
+        }
+    }
+
+    if (separator_index == -1) {
+        cmd_name = safeCalloc(lineptr_len + 1, sizeof(char));
+        memcpy(cmd_name, str, lineptr_len * sizeof(char)); // nazwa komendy - cała linia, argument - nic
+    }
+    else {
+        cmd_name = safeCalloc(separator_index + 1, sizeof(char));
+        arg = safeCalloc(lineptr_len - separator_index + 1, sizeof(char));
+        memcpy(cmd_name, str, separator_index * sizeof(char)); // nazwa komendy - linia aż do separator_index
+        memcpy(arg, str + separator_index, (lineptr_len - separator_index + 1) * sizeof(char)); // argument - reszta linii
+    }
+
+    if (getCommandCode(cmd_name, &line) != CMD_WRONG_COMMAND) {
+        if (CalcParseArg(&menu->calc, line, arg) != CMD_INVALID_ARG) {
+            execCommand(&menu->calc, line);
+        }
+    }
+    free(cmd_name);
+    free(arg);
+}
+
 static void execCommand(Calculator *calc, const Line line)
 {
     if ((*commandList[line.contents.cmd].func)(calc) == CMD_STACK_UNDERFLOW) {
         fprintf(stderr, "ERROR %zu STACK UNDERFLOW\n", line.index);
     }
 }
-
-
 
 
 /**

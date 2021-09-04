@@ -21,9 +21,11 @@
 #define EXP_OF_COEFF 0
 
 /**
- * Generyczne maksimum
+ * Generyczne maksimum.
+ *
  * @param[in] a : obiekt do porównania
  * @param[in] b : obiekt do porównania
+ *
  * @return : maksimum z dwóch obiektów
  */
 #define MAX(a,b) (a >= b)? a : b

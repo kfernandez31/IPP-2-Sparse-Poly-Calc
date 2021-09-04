@@ -74,6 +74,30 @@ static cmd_errcode_t CalcParseDegByArg(Calculator *calc, const Line line, const 
 static cmd_errcode_t CalcParseComposeArg(Calculator *calc, const Line line, const char *str);
 
 
+/**
+ * Sprawdza czy wielomian z wierzchołka stosu spełnia warunek opisany
+ * przez funkcję @p op, wypisuje wynik sprawdzenia na wyjście standardowe.
+ *
+ * @param[in, out] calc : kalkulator
+ * @param[in] op : funkcja zadająca warunek sprawdzenia
+ *
+ * @return : Czy stos jest niepusty
+ */
+static cmd_errcode_t execCheckOp(Calculator *calc, bool (*op)(const Poly *));
+
+/**
+ * Dokonuje działania arytmetycznego zadanego przez @p op i umieszcza jego rezultat
+ * na wierzchołku stosu, zdejmując uprzednio pobrane argumenty.
+ *
+ * @param[in, out] calc : kalkulator
+ * @param[in] op : funkcja zadająca działanie arytmetyczne
+ *
+ * @return : Czy stos ma co najmniej rozmiar 2, tj. czy można dokonać operacji dwuargumentowej na wielomianach
+ */
+static cmd_errcode_t execTwoPolyOp(Calculator *calc, Poly (*op)(const Poly *, const Poly *));
+
+
+
 
 static void PolyPrint(FILE *stream, const Poly *p)
 {
@@ -107,12 +131,13 @@ static void MonoPrint(FILE *stream, const Mono *m)
 static cmd_errcode_t CalcParseDegByArg(Calculator *calc, const Line line, const char *str)
 {
     char *endptr = NULL;
+    size_t str_len = strlen(str);
 
-    if (str == NULL || strlen(str) == 0 || str[0] != ' ' || strcmp(str, " ") == 0) {
+    if (str == NULL || str_len == 0 || str[0] != ' ' || strcmp(str, " ") == 0) {
         fprintf(stderr, "ERROR %zu DEG BY WRONG VARIABLE\n", line.index);
         return CMD_INVALID_ARG;
     }
-    for (size_t i = 1; i < strlen(str); i++) {
+    for (size_t i = 1; i < str_len; i++) {
         if (!isdigit(str[i])) {    //sprawdzenie czy w stringu są same cyfry
             fprintf(stderr, "ERROR %zu DEG BY WRONG VARIABLE\n", line.index);
             return CMD_INVALID_ARG;
@@ -134,12 +159,13 @@ static cmd_errcode_t CalcParseDegByArg(Calculator *calc, const Line line, const 
 static cmd_errcode_t CalcParseAtArg(Calculator *calc, const Line line, const char *str)
 {
     char *endptr = NULL;
+    size_t str_len = strlen(str);
 
-    if (str == NULL || strlen(str) == 0 || str[0] != ' ' || strcmp(str, " ") == 0 || strcmp(str, " -") == 0) {
+    if (str == NULL || str_len == 0 || str[0] != ' ' || strcmp(str, " ") == 0 || strcmp(str, " -") == 0) {
         fprintf(stderr, "ERROR %zu AT WRONG VALUE\n", line.index);
         return CMD_INVALID_ARG;
     }
-    for (size_t i = (str[1]=='-')? 2 : 1; i < strlen(str); i++) {
+    for (size_t i = (str[1]=='-')? 2 : 1; i < str_len; i++) {
         if (!isdigit(str[i])) {    //sprawdzenie czy w stringu są same cyfry (i ewentualny minus na początku)
             fprintf(stderr, "ERROR %zu AT WRONG VALUE\n", line.index);
             return CMD_INVALID_ARG;
@@ -161,12 +187,13 @@ static cmd_errcode_t CalcParseAtArg(Calculator *calc, const Line line, const cha
 static cmd_errcode_t CalcParseComposeArg(Calculator *calc, const Line line, const char *str)
 {
     char *endptr = NULL;
+    size_t str_len = strlen(str);
 
-    if (str == NULL || strlen(str) == 0 || str[0] != ' ' || strcmp(str, " ") == 0) {
+    if (str == NULL || str_len == 0 || str[0] != ' ' || strcmp(str, " ") == 0) {
         fprintf(stderr, "ERROR %zu COMPOSE WRONG PARAMETER\n", line.index);
         return CMD_INVALID_ARG;
     }
-    for (size_t i = 1; i < strlen(str); i++) {
+    for (size_t i = 1; i < str_len; i++) {
         if (!isdigit(str[i])) {    //sprawdzenie czy w stringu są same cyfry
             fprintf(stderr, "ERROR %zu COMPOSE WRONG PARAMETER\n", line.index);
             return CMD_INVALID_ARG;
@@ -219,7 +246,37 @@ cmd_errcode_t CalcParseArg(Calculator *calc, const Line line, const char *str)
     return CMD_OK;
 }
 
+static cmd_errcode_t execCheckOp(Calculator *calc, bool (*op)(const Poly *))
+{
+    if (VectorIsEmpty(calc->polyStack)) {
+        return CMD_STACK_UNDERFLOW;
+    }
 
+    Poly *stackTop = (Poly *) VectorPeek(calc->polyStack);
+    fprintf(stdout, "%d\n", op(stackTop));
+
+    return CMD_OK;
+}
+
+static cmd_errcode_t execTwoPolyOp(Calculator *calc, Poly (*op)(const Poly *, const Poly *))
+{
+    Poly *first = NULL, *second = NULL, res;
+
+    if (calc->polyStack->size < 2) {
+        return CMD_STACK_UNDERFLOW;
+    }
+
+    first = (Poly *) VectorPop(calc->polyStack);
+    second = (Poly *) VectorPop(calc->polyStack);
+
+    res = op(first, second);
+    PolyDestroy(first);
+    PolyDestroy(second);
+
+    VectorPush(calc->polyStack, &res);
+
+    return CMD_OK;
+}
 
 cmd_errcode_t CalcZero(Calculator *calc)
 {
@@ -232,30 +289,12 @@ cmd_errcode_t CalcZero(Calculator *calc)
 
 cmd_errcode_t CalcIsCoeff(Calculator *calc)
 {
-    Poly *top = NULL;
-
-    if (VectorIsEmpty(calc->polyStack)) {
-        return CMD_STACK_UNDERFLOW;
-    }
-
-    top = (Poly *) VectorPeek(calc->polyStack);
-    fprintf(stdout, "%d\n", PolyIsCoeff(top));
-
-    return CMD_OK;
+    return execCheckOp(calc, (PolyIsCoeff));
 }
 
 cmd_errcode_t CalcIsZero(Calculator *calc)
 {
-    Poly *top = NULL;
-
-    if (VectorIsEmpty(calc->polyStack)) {
-        return CMD_STACK_UNDERFLOW;
-    }
-
-    top = (Poly *) VectorPeek(calc->polyStack);
-    fprintf(stdout, "%d\n", PolyIsZero(top));
-
-    return CMD_OK;
+    return execCheckOp(calc, (PolyIsZero));
 }
 
 cmd_errcode_t CalcClone(Calculator *calc)
@@ -278,42 +317,12 @@ cmd_errcode_t CalcClone(Calculator *calc)
 
 cmd_errcode_t CalcAdd(Calculator *calc)
 {
-    Poly *first = NULL, *second = NULL, res;
-
-    if (VectorIsEmpty(calc->polyStack) || calc->polyStack->size < 2) {
-        return CMD_STACK_UNDERFLOW;
-    }
-
-    first = (Poly *) VectorPop(calc->polyStack);
-    second = (Poly *) VectorPop(calc->polyStack);
-
-    res = PolyAdd(first, second);
-    PolyDestroy(first);
-    PolyDestroy(second);
-
-    VectorPush(calc->polyStack, &res);
-
-    return CMD_OK;
+    return execTwoPolyOp(calc, PolyAdd);
 }
 
 cmd_errcode_t CalcMul(Calculator *calc)
 {
-    Poly *first = NULL, *second = NULL, res;
-
-    if (VectorIsEmpty(calc->polyStack) || calc->polyStack->size < 2) {
-        return CMD_STACK_UNDERFLOW;
-    }
-
-    first = (Poly *) VectorPop(calc->polyStack);
-    second = (Poly *) VectorPop(calc->polyStack);
-
-    res = PolyMul(first, second);
-    PolyDestroy(first);
-    PolyDestroy(second);
-
-    VectorPush(calc->polyStack, &res);
-
-    return CMD_OK;
+    return execTwoPolyOp(calc, PolyMul);
 }
 
 cmd_errcode_t CalcNeg(Calculator *calc)
@@ -332,22 +341,7 @@ cmd_errcode_t CalcNeg(Calculator *calc)
 
 cmd_errcode_t CalcSub(Calculator *calc)
 {
-    Poly *first = NULL, *second = NULL, res;
-
-    if (VectorIsEmpty(calc->polyStack) || calc->polyStack->size < 2) {
-        return CMD_STACK_UNDERFLOW;
-    }
-
-    first = (Poly *) VectorPop(calc->polyStack);
-    second = (Poly *) VectorPop(calc->polyStack);
-
-    res = PolySub(first, second);
-    PolyDestroy(first);
-    PolyDestroy(second);
-
-    VectorPush(calc->polyStack, &res);
-
-    return CMD_OK;
+    return execTwoPolyOp(calc, PolySub);
 }
 
 cmd_errcode_t CalcIsEq(Calculator *calc)
@@ -368,15 +362,12 @@ cmd_errcode_t CalcIsEq(Calculator *calc)
 
 cmd_errcode_t CalcDeg(Calculator *calc)
 {
-    Poly *top = NULL;
-
     if (VectorIsEmpty(calc->polyStack)) {
         return CMD_STACK_UNDERFLOW;
     }
 
-    top = (Poly *) VectorPeek(calc->polyStack);
-
-    fprintf(stdout, "%d\n", PolyDeg(top));
+    Poly *stackTop = (Poly *) VectorPeek(calc->polyStack);
+    fprintf(stdout, "%d\n", PolyDeg(stackTop));
 
     return CMD_OK;
 }

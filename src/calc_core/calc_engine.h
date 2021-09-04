@@ -91,7 +91,7 @@ typedef struct Calculator {
  * Wskaźnik na komendę kalkulatora.
  * @param[in, out] calc : kalkulator
  */
-typedef cmd_errcode_t (*op_func) (Calculator *calc);
+typedef cmd_errcode_t (*cmd_func) (Calculator *calc);
 
 /**
  * Struktura asocjująca nazwę komendy z odpowiadającą
@@ -99,7 +99,7 @@ typedef cmd_errcode_t (*op_func) (Calculator *calc);
  */
 typedef struct command_pair_t {
     const char *const name;    ///< Komenda (nazwa)
-    op_func func;              ///< Komenda (funkcja)
+    cmd_func func;              ///< Komenda (funkcja)
 } command_pair_t;
 
 

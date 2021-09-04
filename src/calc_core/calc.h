@@ -1,5 +1,5 @@
 /** @file
-  Interfejs menu do kalkulatora wielomianów rzadkich wielu zmiennych
+  Implementacja menu do kalkulatora wielomianów rzadkich wielu zmiennych
 
   @authors Kacper Kramarz-Fernandez <k.kramarzfer@student.uw.edu.pl>
   @copyright Uniwersytet Warszawski
@@ -13,7 +13,7 @@
 #define _GNU_SOURCE
 
 #include "calc_engine.h"
-#include "parsing.h"
+#include "line_parsing.h"
 
 /**
  * Struktura stanowiąca warstwę abstrakcji do obsługi kalkulatora.
@@ -29,6 +29,5 @@ typedef struct Menu {
  * @param[in] menu : interfejs kalkulatora
  */
 void run(Menu* menu);
-
 
 #endif //__MENU_H__

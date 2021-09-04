@@ -249,7 +249,7 @@ Poly PolyCloneMonos(size_t count, const Mono monos[]);
 
 /**
  * Dokonuje złożenia wielomianu @p p z @p k wielomianami z tablicy @p q.
- * Formalna definicja złożenia:
+ * Formalna definicja złożenia (z treści zadania):
  *
  * "Dany jest wielomian p oraz k wielomianów q0, q1, q2, …, qk−1.
  * Niech l oznacza liczbę zmiennych wielomianu p i niech te zmienne są oznaczone

@@ -11,6 +11,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "safe_allocations.h"
 
 /**
  * Domyślny początkowy rozmiar wektora.
