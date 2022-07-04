@@ -4,6 +4,4 @@
 - [part 3](https://gitlab.com/mimuw-ipp-2021/testy-duze-zadanie-3)
 
 # Official tests
-- [part 1](TODO)
-- [part 2](TODO)
-- [part 3](TODO)
+https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/tree/main/src/test
