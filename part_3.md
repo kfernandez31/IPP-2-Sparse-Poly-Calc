@@ -4,7 +4,7 @@ Celem trzeciej części zadania jest **dokończenie programu kalkulatora** dzia�
 
 ## Konstruowanie wielomianu z tablicy jednomianów
 
-Do stworzonej w [części 1](TODO) zadania biblioteki operacji na wielomianach poly (pliki [**poly.h**](TODO) i [**poly.c**](TODO) należy dodać dwie funkcje działające podobnie jak funkcja `PolyAddMonos`, ale ze zmienionym sposobem przekazywania własności tablicy jednomianów:
+Do stworzonej w części 1 zadania biblioteki operacji na wielomianach poly (pliki [**poly.h**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_core/poly.h) i [**poly.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_core/poly.c) należy dodać dwie funkcje działające podobnie jak funkcja `PolyAddMonos`, ale ze zmienionym sposobem przekazywania własności tablicy jednomianów:
 ```c
 /**
  * Sumuje listę jednomianów i tworzy z nich wielomian. Przejmuje na własność
@@ -32,7 +32,7 @@ Poly PolyCloneMonos(size_t count, const Mono monos[]);
 
 Przy implementowaniu tych funkcji należy unikać powtarzania kodu.
 
-Użyte w poniższych przykładach makra `C` i `P` oraz funkcja `M` są zdefiniowane w testach do części 1 zadania, w pliku [**poly_test.c**](TODO).
+Użyte w poniższych przykładach makra `C` i `P` oraz funkcja `M` są zdefiniowane w testach do części 1 zadania, w pliku [**poly_test.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/test/poly_test.c).
 
 ### Przykład 1
 
@@ -178,9 +178,9 @@ cmake ..
 - polecenie `make test` tworzy plik wykonywalny `poly_test` z testami biblioteki `poly`,
 - polecenie `make doc` tworzy dokumentację w formacie `doxygen`.
 
-Funkcja `main` kalkulatora ma się znajdować w pliku [**src/calc.c**](TODO). Funkcja `main` uruchamiająca testy biblioteki `poly` ma się znajdować w pliku [**src/poly_test.c**](TODO) – może to być plik z udostępnionymi testami do części 1 zadania i rozszerzony o własne testy. Zawartość tego pliku nie będzie oceniana.
+Funkcja `main` kalkulatora ma się znajdować w pliku [**src/calc.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/calc_core/calc.c). Funkcja `main` uruchamiająca testy biblioteki `poly` ma się znajdować w pliku [**src/poly_test.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/test/poly_test.c) – może to być plik z udostępnionymi testami do części 1 zadania i rozszerzony o własne testy. Zawartość tego pliku nie będzie oceniana.
 
-**Wskazówka**: W pliku [**CMakeList.txt**](TODO) można dodać polecenia:
+**Wskazówka**: W pliku [**CMakeList.txt**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/calc_core/calc.c) można dodać polecenia:
 ```cmake
 # Wskazujemy plik wykonywalny testów biblioteki.
 add_executable(test EXCLUDE_FROM_ALL ${TEST_SOURCE_FILES})

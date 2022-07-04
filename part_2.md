@@ -9,7 +9,7 @@ Program kalkulatora czyta dane wierszami ze standardowego wejścia. Wiersz zawie
 Wielomian reprezentujemy jako stałą, jednomian lub sumę jednomianów. Stała jest liczbą całkowitą. Jednomian reprezentujemy jako parę (`coeff`, `exp`), gdzie współczynnik coeff jest wielomianem, a wykładnik exp jest liczbą nieujemną. Do wyrażenia sumy używamy znaku `+`. Jeśli wiersz zawiera wielomian, to program wstawia go na stos. 
 
 Przykłady poprawnych wielomianów:
-```
+```c
 0
 1
 -2
@@ -44,7 +44,7 @@ Przykłady poprawnych wielomianów:
 Wypisywany poleceniem `PRINT` wielomian powinien mieć jak najprostszą postać. Wykładniki wypisywanych jednomianów nie powinny się powtarzać. Jednomiany powinny być posortowane rosnąco według wykładników.
 
 Podane wyżej wielomiany powinny zostać wypisane następująco:
-```
+```c
 0
 1
 -2
@@ -62,7 +62,7 @@ Podane wyżej wielomiany powinny zostać wypisane następująco:
 
 ## Sprawdzanie poprawności danych wejściowych i obsługa błędów
 
-Program nie powinien zakładać maksymalnej długości wiersza. Poprawny wiersz nie zawiera żadnych dodatkowych białych znaków oprócz pojedynczej spacji separującej parametr poleceń `AT` i `DEG_BY` od polecenia. Program wypisuje komunikaty o błędach na standardowe wyjście błędów. Poniżej w oznacza numer wiersza, a `\n` – znak przejścia do nowego wiersza. Wiersze i kolumny numerujemy od `1`.
+Program nie powinien zakładać maksymalnej długości wiersza. Poprawny wiersz nie zawiera żadnych dodatkowych białych znaków oprócz pojedynczej spacji separującej parametr poleceń `AT` i `DEG_BY` od polecenia. Program wypisuje komunikaty o błędach na standardowe wyjście błędów. Poniżej `w` oznacza numer wiersza, a `\n` – znak przejścia do nowego wiersza. Wiersze i kolumny numerujemy od `1`.
 
 Ignorujemy wiersze zaczynające się znakiem `#` i puste. Jeśli wiersz zaczyna się małą lub wielką literą alfabetu angielskiego, to uznajemy, że zawiera polecenie. W pozostałych przypadkach uznajemy, że wiersz opisuje wielomian.
 
@@ -106,13 +106,28 @@ Rozwiązanie części 2 zadania powinno korzystać z własnego rozwiązania czę
 - uzupełnienia dokumentacji dla programu `doxygen`,
 - dostosowania pliku konfiguracyjnego dla programu `cmake`.
 
-Obowiązują wymagania sformułowane w punkcie [**"Wymagamy”**](TODO) w treści pierwszej części zadania. Zmieniamy jedno wymaganie: teraz funkcja main powinna być zawarta w `pliku src/calc.c`. Plik `src/poly_example.c` może pozostać niezmieniony. Pozostawiamy natomiast wymaganie, że w wyniku kompilacji powinien powstać plik wykonywalny poly.
+Obowiązują wymagania sformułowane w punkcie ["Wymagamy”](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/part_1.md#wymagamy) w treści pierwszej części zadania. Zmieniamy jedno wymaganie: teraz funkcja main powinna być zawarta w [**pliku src/calc.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/calc_core/calc.c). Plik [**src/poly_example.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_example.c)) może pozostać niezmieniony. Pozostawiamy natomiast wymaganie, że w wyniku kompilacji powinien powstać plik wykonywalny `poly`.
 
-Obowiązują wymagania sformułowane w punkcie „Obsługa błędów krytycznych” w treści pierwszej części zadania.
-Oddawanie rozwiązania
+Obowiązują wymagania sformułowane w punkcie [**"Obsługa błędów krytycznych"**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/part_1.md#obs%C5%82uga-b%C5%82%C4%99d%C3%B3w-krytycznych) w treści pierwszej części zadania.
+
+## Oddawanie rozwiązania
 
 Rozwiązanie należy oddawać, podobnie jak część 1, przez repozytorium `git`. W repozytorium mają się znaleźć wszystkie pliki niezbędne do zbudowania pliku wykonywalnego oraz dokumentacji. W repozytorium nie wolno umieszczać plików binarnych ani tymczasowych. W Moodle jako rozwiązanie należy umieścić tekst zawierający identyfikator commitu finalnej wersji rozwiązania, na przykład:
 ```
 518507a7e9ea50e099b33cb6ca3d3141bc1d6638
 ```
 Rozwiązanie należy zatwierdzić (`git commit`) i wysłać do repozytorium (`git push`) przed terminem podanym w Moodle.
+
+## Punktacja
+
+Za w pełni poprawne rozwiązanie zadania implementujące wszystkie wymagane funkcjonalności można zdobyć maksymalnie 20 punktów. Od tej oceny będą odejmowane punkty za poniższe uchybienia:
+
+- Za problemy ze skompilowaniem rozwiązania można stracić wszystkie punkty.
+- Za każdy test, którego program nie przejdzie, traci się do 1 punktu.
+- Za problemy z zarządzaniem pamięcią można stracić do 6 punktów.
+- Za niezgodną ze specyfikacją strukturę plików w rozwiązaniu, niezgodne ze specyfikacją nazwy plików w rozwiązaniu lub umieszczenie w repozytorium niepotrzebnych albo tymczasowych plików można stracić do 4 punktów.
+- Za złą jakość kodu, brzydki styl kodowania można stracić do 4 punktów.
+- Za ostrzeżenia wypisywane przez kompilator można stracić do 2 punktów.
+- Za braki w dokumentacji można stracić do 2 punktów.
+
+Rozwiązania należy implementować samodzielnie pod rygorem niezaliczenia przedmiotu. Zarówno korzystanie z cudzego kodu, jak i prywatne lub publiczne udostępnianie własnego kodu jest zabronione.

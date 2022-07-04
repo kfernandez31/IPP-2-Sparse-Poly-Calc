@@ -9,17 +9,17 @@ Rekurencja kończy się, gdy współczynnik jest liczbą (czyli wielomianem sta�
 
 ## Część 1 zadania
 
-Jako pierwszą część zadania należy zaimplementować bibliotekę podstawowych operacji na wielomianach rzadkich wielu zmiennych. Opis funkcji znajduje się w pliku [**poly.h**](TODO) w formacie komentarzy dla programu `doxygen`.
+Jako pierwszą część zadania należy zaimplementować bibliotekę podstawowych operacji na wielomianach rzadkich wielu zmiennych. Opis funkcji znajduje się w pliku [**poly.h**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_core/poly.h) w formacie komentarzy dla programu `doxygen`.
 
 ## Dostarczamy
 
 W repozytorium https://git.mimuw.edu.pl/IPP-login.git (gdzie login to identyfikator używany do logowania w laboratorium komputerowym) znajduje się szablon implementacji rozwiązania tego zadania. Znajdują się tam następujące pliki:
 
-- [**src/poly.h**](TODO) – deklaracja interfejsu biblioteki wraz z jej dokumentacją w formacie doxygen,
-- [**src/poly_example.c**](TODO) – przykłady użycia biblioteki,
-- [**CMakeLists.txt**](TODO) – plik konfiguracyjny programu `cmake`,
-- [**Doxyfile.in**](TODO) – plik konfiguracyjny programu `doxygen`,
-- [**MainPage.dox**](TODO) – strona główna dokumentacji w formacie `doxygen`.
+- [**src/poly.h**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_core/poly.h) – deklaracja interfejsu biblioteki wraz z jej dokumentacją w formacie doxygen,
+- [**src/poly_example.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_example.c) – przykłady użycia biblioteki,
+- [**CMakeLists.txt**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/CMakeLists.txt) – plik konfiguracyjny programu `cmake`,
+- [**Doxyfile.in**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/Doxyfile.in) – plik konfiguracyjny programu `doxygen`,
+- [**MainPage.dox**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/MainPage.dox) – strona główna dokumentacji w formacie `doxygen`.
 
 Zastrzegamy sobie możliwość nanoszenia poprawek do tego szablonu. Będziemy je umieszczać gałęzi `template/part1.`
 
@@ -27,8 +27,8 @@ Zastrzegamy sobie możliwość nanoszenia poprawek do tego szablonu. Będziemy j
 
 Jako rozwiązanie części 1 zadania wymagamy:
 
-- ewentualnego uzupełnienia implementacji lub rozszerzenia interfejsu biblioteki w pliku [**src/poly.h**](TODO),
-- stworzenia pliku [**src/poly.c**](TODO) z implementacją wymaganych funkcji,
+- ewentualnego uzupełnienia implementacji lub rozszerzenia interfejsu biblioteki w pliku [**src/poly.h**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_core/poly.h),
+- stworzenia pliku [**src/poly.c**](https://github.com/kfernandez31/IPP-2-Sparse-Poly-Calc/blob/main/src/poly_core/poly.c) z implementacją wymaganych funkcji,
 - uzupełnienia dokumentacji w formacie `doxygen` tak, aby była przydatna dla programistów rozwijających moduł.
 
 Powinna być możliwość skompilowania rozwiązania w dwóch wersjach: `release` i `debug`. 
