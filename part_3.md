@@ -66,7 +66,9 @@ free(monos);
 ## Składanie wielomianów
 
 Definiujemy operację składania wielomianów. Dany jest wielomian $p$
-oraz $k$ wielomianów $q_0, q_1, q_2, \ldots, q_{k−1}$. Niech $l$ oznacza liczbę zmiennych wielomianu $p$ i niech te zmienne są oznaczone odpowiednio $x_0, x_1, x_2, \ldots, x_{l−1}$. Wynikiem złożenia jest wielomian $p(q_0,q_1,q_2,\ldots)$, czyli wielomian powstający przez podstawienie w wielomianie $p$ pod zmienną $x_i$ wielomianu $q_i$ dla $i=0,1,2,\ldots,min(k,l)−1$. Jeśli $k<l$, to pod zmienne $x_k, \ldots, x_{l−1}$ podstawiamy zera. Na przykład, jeśli $k=0$, to wynikiem złożenia jest liczba $p(0,0,0,\ldots)$.
+oraz $k$ wielomianów $q_0, q_1, q_2, \ldots, q_{k−1}$. Niech $l$ oznacza liczbę zmiennych wielomianu $p$ i niech te zmienne są oznaczone odpowiednio $x_0, x_1, x_2, \ldots, x_{l−1}$. Wynikiem złożenia jest wielomian $p(q_0,q_1,q_2,\ldots)$, czyli wielomian powstający przez podstawienie w wielomianie $p$ pod zmienną $x_i$ wielomianu $q_i$ dla $i=0,1,2,\ldots,min(k,l)−1$. 
+
+Jeśli $k<l$, to pod zmienne $x_k, \ldots, x_{l−1}$ podstawiamy zera. Na przykład, jeśli $k=0$, to wynikiem złożenia jest liczba $p(0,0,0,\ldots)$.
 
 W celu realizacji operacji składanie wielomianów należy rozszerzyć bibliotekę `poly` o funkcję
 ```c
