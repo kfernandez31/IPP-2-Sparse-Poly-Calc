@@ -41,7 +41,7 @@ set(TEST_SOURCE_FILES
         src/poly_core/poly.c
         src/poly_core/poly.h
         src/poly_core/poly_structures.h
-        src/poly_test.c
+        src/test/poly_test.c
         )
 
 # Wskazujemy plik wykonywalny (kalkulatora).
