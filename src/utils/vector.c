@@ -74,7 +74,7 @@ static vect_errcode_t VectorExpand(vector_t *v, size_t cap)
         new_cap = cap;
 	}
 
-    new_items = safeRealloc(v->items, new_cap * v->obj_size);
+    new_items = realloc(v->items, new_cap * v->obj_size);
 
 	if (new_items == NULL) {
 		return VECT_ENOMEM;
@@ -100,7 +100,7 @@ vector_t *VectorNew(size_t obj_size, size_t cap)
 		return NULL;
 	}
 
-	v = safeMalloc(sizeof(vector_t));
+	v = malloc(sizeof(vector_t));
 
 	if (v == NULL) {
 	    return NULL;
@@ -111,7 +111,7 @@ vector_t *VectorNew(size_t obj_size, size_t cap)
 		cap = (VECT_MIN_ALLOC + (obj_size - 1)) / obj_size;
 	}
 
-	v->items = safeMalloc(cap * obj_size);
+	v->items = malloc(cap * obj_size);
 
     if (v->items == NULL) {
         free(v);
@@ -165,7 +165,7 @@ vect_errcode_t VectorShrinkToFit(vector_t *v)
         new_cap = (VECT_MIN_ALLOC + (v->obj_size - 1)) / v->obj_size;
 	}
 
-    new_items = safeRealloc(v->items, new_cap * v->obj_size);
+    new_items = realloc(v->items, new_cap * v->obj_size);
 
 	if (new_items == NULL) {
 	    return VECT_ENOMEM;

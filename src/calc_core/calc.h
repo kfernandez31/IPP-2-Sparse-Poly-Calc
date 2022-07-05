@@ -13,7 +13,7 @@
 #define _GNU_SOURCE
 
 #include "calc_engine.h"
-#include "line_parsing.h"
+#include "parsing.h"
 
 /**
  * Struktura stanowiąca warstwę abstrakcji do obsługi kalkulatora.

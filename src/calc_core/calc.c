@@ -82,7 +82,6 @@ void run(Menu* menu)
 
     CalcInit(&menu->calc);
 
-    errno = 0;
     while ( (nread = getline(&lineptr, &len, stdin)) != -1 ) {
         CHECK_POINTER(lineptr);
         Line line;
@@ -101,9 +100,6 @@ void run(Menu* menu)
     }
     if (lineptr != NULL) {
         free(lineptr);
-    }
-    if (nread == -1 && errno == ENOMEM) {
-        exit(EXIT_FAILURE);
     }
 
     CalcDestroy(&menu->calc);

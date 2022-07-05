@@ -6,7 +6,7 @@
   @date 2021
 */
 
-#include "line_parsing.h"
+#include "parsing.h"
 
 /** Oznaczenie na system dziesiętny (dla konwersji) */
 #define DECIMAL 10
@@ -111,9 +111,8 @@ static bool doesStringRepresentPoly(const char *str)
 
 static bool doesStringRepresentCoeffPoly(const char *str)
 {
-    size_t str_len = strlen(str);
     if (str[0] == '-') {
-        for (size_t i = 1; i < str_len; i++) {
+        for (size_t i = 1; i < strlen(str); i++) {
             if (!isdigit(str[i])) {
                 return false;
             }
@@ -121,7 +120,7 @@ static bool doesStringRepresentCoeffPoly(const char *str)
         return true;
     }
     if (isdigit(str[0])) {
-        for (size_t i = 0; i < str_len; i++) {
+        for (size_t i = 0; i < strlen(str); i++) {
             if (!isdigit(str[i])) {
                 return false;
             }
@@ -295,7 +294,8 @@ static poly_errcode_t parseMonoRecursive(Mono *m, const char *str, const size_t 
     free(preprocessedExp);
 
     if ((exp == 0 && (errno != 0 || endptr == preprocessedExp))|| !IS_VALID_EXP(exp)) {
-        return POLY_ERR;    // input nie reprezentuje liczby lub overflow/underflow
+        // input nie reprezentuje liczby lub overflow/underflow
+        return POLY_ERR;
     }
     else {
         m->exp = (poly_exp_t)exp;

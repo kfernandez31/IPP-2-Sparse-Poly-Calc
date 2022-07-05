@@ -29,8 +29,8 @@ set(SOURCE_FILES
         src/calc_core/line_structures.h
         src/calc_core/calc.c
         src/calc_core/calc.h
-        src/calc_core/line_parsing.c
-        src/calc_core/line_parsing.h
+        src/calc_core/parsing.c
+        src/calc_core/parsing.h
         src/utils/safe_allocations.h
         src/utils/vector.c
         src/utils/vector.h

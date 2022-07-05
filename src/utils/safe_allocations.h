@@ -47,9 +47,8 @@ static inline void *safeRealloc(void *ptr, size_t size)
  * calloc(), ale ze sprawdzeniem wyniku.
  * Zakańcza działanie programu przy braku pamięci.
  *
- * @param[in] ptr : alokowany wskaźnik
- * @param[in] nmemb : liczba elementów pod wskaźnikiem
- * @param[in] size : rozmiar elementu w bajtach
+ * @param[in] ptr : realokowany wskaźnik
+ * @param[in] size : rozmiar wskaźnika w bajtach
  *
  * @return : zrealokowany wskaźnik
  */
